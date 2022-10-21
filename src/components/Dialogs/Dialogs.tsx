@@ -1,22 +1,32 @@
 import {state} from "../../state/state";
 import s from './Dialogs.module.css'
+import {NavLink} from "react-router-dom";
+import {Navbar} from "../Navbar/Navbar";
+
+export const DialogItem=()=>{
+    let dialogs = state.dialogsPage.dialogs
+    return(
+        <div className={s.dialog}>
+            {dialogs.map(d =>  <NavLink key={d.id} to={`${'/dialogs'}/${d.id}`}><div>{d.name} </div> </NavLink>)}
+        </div>
+    )
+}
+
+export const MessageItem = ()=>{
+    let message = state.dialogsPage.messages
+    return (
+            <div className={s.message}>
+                {message.map(m=><div key={m.id}>{m.message}</div>)}
+            </div>
+    )
+}
 
 export const Dialogs = () => {
-    let dialogs = state.dialogsPage.dialogs
-    let messages = state.dialogsPage.messages
-    return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                <div className={s.dialog}>
-                    {dialogs.map(d => <div>{d.name}</div>)}
-                </div>
-            </div>
-            <div className={s.messages}>
-                <div className={s.message}>
-                    {messages.map(m=><div>{m.message}</div>)}
-                </div>
 
+    return (
+            <div className={s.dialogsItems}>
+                <DialogItem/>
+                <MessageItem/>
             </div>
-        </div>
     )
 }
